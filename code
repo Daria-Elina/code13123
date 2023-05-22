@@ -1,0 +1,24 @@
+bool are_outer_lines_zeroes(const Matrix_info *mtx)
+{
+  const auto data = mtx->data;
+  const auto rows = mtx->rows, cols = mtx->cols;
+
+  if (rows < cols)
+  {
+    const auto diff = cols - rows;
+    for (size_t i = 0; i < rows; ++i)
+    {
+      for (size_t j = 0; j < diff; ++j)
+        if (tail[j] != 0)
+          return false;
+    }
+  }
+  else if (cols < rows)
+  {
+    const auto excess = data + cols * cols;
+    const auto size  = (rows - cols) * cols; // сколько оставшихся элементов
+    for (size_t i = 0; i < size; ++i)
+      if (excess[i] != 0)
+        return false;
+  }
+}
